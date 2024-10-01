@@ -1,0 +1,115 @@
+/* ----------------------- conversation list ----------------------- */
+.control-filelist ul > li > a .description span {
+    display:inline;
+}
+.control-filelist ul > li > a .message_count,
+.control-filelist ul > li > a .is_superuser {
+    padding: 0px 4px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 9px;
+    line-height:10px;
+}
+.control-filelist ul > li > a .message_count {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background-color: #777;
+}
+.control-filelist ul > li > a .is_superuser {
+    background-color: #d00;
+    color:#d00;
+}
+.control-filelist ul > li > a .description .last_message_at_string {
+    float:right;
+    margin-right:3px;
+}
+.control-filelist ul > li > a {
+    padding:2px 10px;
+}
+
+body #layout-body {
+    /* Override the acorn.calendar.css setting, included for Calendar tab */
+    padding: 0px!important;
+}
+
+.control-filelist ul > li.conversation-group {
+    background-color:#ece4dd;
+}
+
+/* ----------------------- conversation of messages and emails ----------------------- */
+.tab-pane .conversation {
+    background:#e67e22;
+    list-style:none;
+    padding:10px;
+    color:#fff;
+}
+.tab-pane .conversation > li {
+    margin:0px 0px 8px 0px;
+}
+.tab-pane .conversation > li > a {
+    display:inline-block;
+    max-width:60%;
+    padding:4px 12px;
+    border-radius:10px;
+    color:#fff;
+    cursor:pointer;
+}
+.tab-pane .conversation > li.sent {
+    text-align:right;
+}
+.tab-pane .conversation > li.received > a {
+    border:1px solid #fff;
+    background-color:#d35400;
+    color:#fff;
+}
+.tab-pane .conversation > li.received > a:hover {
+    background-color:#e36410;
+}
+.tab-pane .conversation > li.sent > a {
+    text-align:left;
+    border:1px solid #fff;
+    background-color:#34495e;
+    color:#fff;
+}
+.tab-pane .conversation > li.sent > a:hover {
+    background-color:#44596e;
+}
+
+.tab-pane .conversation > li .name {
+    display:none;Admin
+}
+.tab-pane .conversation > li .created-at {
+    float:right;
+    margin-left:4px;
+    font-size:12px;
+}
+.tab-pane .conversation > li .subject {
+    float:left;
+    font-weight:bold;
+}
+.tab-pane .conversation > li .body {
+    display:block;
+    clear:both;
+}
+.tab-pane .conversation > li .labels,
+.tab-pane .conversation > li .source {
+    opacity:0.8;
+    font-size:12px;
+    font-style:italic;
+}
+
+/* ----------------------- message type ----------------------- */
+.tab-pane .conversation > li.event > a {
+    font-style:italic;
+    background-color:Transparent;
+    border:1px dashed #fff;
+    opacity:0.7;
+    display:block;
+    max-width:100%;
+}
+.tab-pane .conversation > li.event > a > span {
+    float:none;
+    text-align:center;
+}

@@ -1,0 +1,31 @@
+fields:
+    subject:
+        label:
+        span: full
+        type: text
+        placeholder: Subject
+    toolbar:
+        type: partial
+        path: message_toolbar
+        cssClass: collapse-visible
+tabs:
+    fields:
+        users:
+            label: Users
+            nameFrom: first_name
+            descriptionFrom: description
+            span: auto
+            type: relation
+            tab: To
+        groups:
+            label: Groups
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            type: relation
+            tab: To
+        body:
+            label:
+            type: Backend\FormWidgets\RichEditor
+            size: large
+            tab: Content

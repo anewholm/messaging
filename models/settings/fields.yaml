@@ -1,0 +1,24 @@
+fields:
+    default_IMAP_server:
+        label: Default IMAP server
+        type: text
+        span: left
+    default_IMAP_port:
+        label: Default IMAP port
+        type: number
+        span: right
+    default_email_notifications:
+        label: Default Email Notifications
+        type: dropdown
+        span: left
+        comment: Emails will be sent to admin@nowhere.com
+        options:
+            N: No email notifications
+            A: All messages
+            D: Daily digest
+            W: Weekly digest
+    default_sounds:
+        label: Default Sound alerts
+        type: checkbox
+        span: right
+        comment: Play a sound when a message arrives (like Facebook)

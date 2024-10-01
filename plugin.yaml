@@ -1,0 +1,17 @@
+plugin:
+    name: 'acorn.messaging::lang.plugin.name'
+    description: 'acorn.messaging::lang.plugin.description'
+    author: 'Acorn'
+    icon: wn-icon-wechat
+    replaces: {  }
+permissions:
+    acorn_messaging:
+        label: acorn.messaging::lang.permissions.view_messages
+        tab: acorn.messaging::lang.plugin.name
+navigation:
+    messaging-menu-item:
+        label: Messaging
+        url: acorn/messaging/conversations
+        icon: icon-wechat
+        permissions:
+            - acorn_messaging

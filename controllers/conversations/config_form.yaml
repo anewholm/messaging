@@ -1,0 +1,11 @@
+name: Inbox
+modelClass: Acorn\Messaging\Models\Message
+form: $/acorn/messaging/models/message/fields.yaml
+defaultRedirect: acorn/messaging/inbox
+create:
+    redirect: 'acorn/messaging/inbox/update/:id'
+    redirectClose: acorn/messaging/inbox
+update:
+    redirect: acorn/messaging/inbox
+    redirectClose: acorn/messaging/inbox
+preview: {  }

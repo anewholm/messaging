@@ -1,0 +1,22 @@
+# ===================================
+#  Configures the messsage list widget
+# ===================================
+
+titleProperty: 'first_name'
+descriptionProperty: none
+descriptionProperties:
+    groups: groups
+    email: email
+    is_superuser: is_superuser
+    last_message_at_string: last_message_at_string
+    message_count: message_count
+noRecordsMessage: 'No Conversations'
+deleteConfirmation: 'cms::lang.page.delete_confirm_multiple'
+itemType: conversation
+sortingProperties:
+    first_name: 'First Name'
+    last_name: 'Last Name'
+    email_lcase: 'Email'
+    last_message_at: 'Date'
+    message_count: 'Count'
+    item_type: 'Type'

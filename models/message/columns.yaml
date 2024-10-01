@@ -1,0 +1,19 @@
+columns:
+    id:
+        label: id
+        type: number
+    user_from_id:
+        label: user_from_id
+        type: text
+    subject:
+        label: subject
+        type: text
+    body:
+        label: body
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime

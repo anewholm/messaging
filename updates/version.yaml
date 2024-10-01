@@ -1,0 +1,21 @@
+1.0.1:
+    - 'Initialize plugin.'
+    - 'Created table acorn_messaging_message'
+    - builder_table_create_acorn_messaging_message.php
+    - 'Created table acorn_messaging_message_user'
+    - builder_table_create_acorn_messaging_message_user.php
+    - 'Created table acorn_messaging_message_user_group'
+    - builder_table_create_acorn_messaging_message_user_group.php
+    - 'Created table acorn_messaging_message_message'
+    - builder_table_create_acorn_messaging_message_message.php
+    - 'Created table acorn_messaging_action'
+    - builder_table_create_acorn_messaging_action.php
+    - 'Created table acorn_messaging_label'
+    - builder_table_create_acorn_messaging_label.php
+    - 'Created table acorn_messaging_status'
+    - builder_table_create_acorn_messaging_status.php
+    - 'Seeding message status'
+    - seed_status.php
+2.0.0:
+    - 'Create acorn users extra fields'
+    - create_acorn_users_extra_fields.php
