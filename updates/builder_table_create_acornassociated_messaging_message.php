@@ -2,7 +2,7 @@
 
 use DB;
 use Schema;
-use Winter\Storm\Database\Updates\Migration;
+use \Acorn\Migration;
 
 class BuilderTableCreateAcornMessagingMessage extends Migration
 {
@@ -23,6 +23,8 @@ class BuilderTableCreateAcornMessagingMessage extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
+
+        $this->setTableTypeContent('acorn_messaging_message');
     }
 
     public function down()

@@ -2,7 +2,7 @@
 
 use DB;
 use Schema;
-use Winter\Storm\Database\Updates\Migration;
+use \Acorn\Migration;
 
 class BuilderTableCreateAcornMessagingStatus extends Migration
 {
@@ -17,6 +17,8 @@ class BuilderTableCreateAcornMessagingStatus extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
+
+        $this->setTableTypeContent('acorn_messaging_status');
 
         Schema::create('acorn_messaging_user_message_status', function($table)
         {
@@ -39,6 +41,8 @@ class BuilderTableCreateAcornMessagingStatus extends Migration
                 ->references('id')->on('acorn_messaging_status')
                 ->onDelete('cascade');
         });
+
+        $this->setTableTypeContent('acorn_messaging_user_message_status');
     }
 
     public function down()

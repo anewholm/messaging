@@ -251,8 +251,8 @@ class Plugin extends PluginBase
             'settings' => [
                 'label'       => 'Messaging Settings',
                 'description' => 'Manage messaging based settings.',
-                'category'    => 'Messaging',
-                'icon'        => 'icon-cog',
+                'category'    => 'Acorn',
+                'icon'        => 'icon-wechat',
                 'class'       => 'Acorn\Messaging\Models\Settings',
                 'order'       => 500,
                 'keywords'    => 'messaging email communication',
