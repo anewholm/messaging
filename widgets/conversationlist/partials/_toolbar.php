@@ -13,7 +13,7 @@
                     class="btn btn-default wn-icon-plus <?= !$this->sortingProperties ? 'last' : null ?>"
                     data-control="create-message"
                 >
-                   <?= e(trans('Conversation')) ?>
+                   <?= e(trans('acorn.messaging::lang.models.conversation.label')) ?>
                 </button>
 
                 <?php if ($this->sortingProperties): ?>

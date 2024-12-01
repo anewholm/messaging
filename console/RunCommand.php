@@ -36,12 +36,12 @@ class RunCommand extends Command
         $this->info("Client refreshing IMAP");
 
         while (TRUE) {
-            foreach (User::whereNotNull('acorn_IMAP_password')
-                ->where('acorn_IMAP_password', '!=', '')
-                ->get() 
+            foreach (User::whereNotNull('acorn_imap_password')
+                ->where('acorn_imap_password', '!=', '')
+                ->get()
                 as $user
             ) {
-                if ($verbose) $this->info("$user->acorn_IMAP_server:$user->email...");
+                if ($verbose) $this->info("$user->acorn_imap_server:$user->email...");
                 $newEmails = array();
                 try {
                     $newEmails = $this->refreshIMAP($user);
@@ -81,21 +81,21 @@ class RunCommand extends Command
         $imap    = new IMAP(function() use($user) {
             return [
                 // user specific
-                'username'   => $user->acorn_IMAP_username ?: $user->email,
-                'password'   => $user->acorn_IMAP_password,
+                'username'   => $user->acorn_imap_username ?: $user->email,
+                'password'   => $user->acorn_imap_password,
                 // TODO: Use default_* settings, not env
-                'host'       => env('IMAP_HOST',     $user->acorn_IMAP_server),
-                'port'       => env('IMAP_PORT',     $user->acorn_IMAP_port ?: 993),
-                'protocol'   => env('IMAP_PROTOCOL', $user->acorn_IMAP_protocol ?: 'imap'),
-                'encryption' => env('IMAP_ENCRYPTION',         $user->acorn_IMAP_encryption ?: 'ssl'),
-                'validate_cert'  => env('IMAP_VALIDATE_CERT',  $user->acorn_IMAP_validate_cert),
-                'authentication' => env('IMAP_AUTHENTICATION', $user->acorn_IMAP_authentication ?: NULL),
+                'host'       => env('IMAP_HOST',     $user->acorn_imap_server),
+                'port'       => env('IMAP_PORT',     $user->acorn_imap_port ?: 993),
+                'protocol'   => env('IMAP_PROTOCOL', $user->acorn_imap_protocol ?: 'imap'),
+                'encryption' => env('IMAP_ENCRYPTION',         $user->acorn_imap_encryption ?: 'ssl'),
+                'validate_cert'  => env('IMAP_VALIDATE_CERT',  $user->acorn_imap_validate_cert),
+                'authentication' => env('IMAP_AUTHENTICATION', $user->acorn_imap_authentication ?: NULL),
             ];
         });
 
         // This returns new Message() objects (unsaved)
         // TODO: Get only new messages since last fetch
-        $since     = ($user->acorn_IMAP_last_fetch ? new Carbon($user->acorn_IMAP_last_fetch) : NULL);
+        $since     = ($user->acorn_imap_last_fetch ? new Carbon($user->acorn_imap_last_fetch) : NULL);
         $emails    = $imap->getAllMessages(NULL, $since, TRUE, $verbose);
         $newEmails = array();
         foreach ($emails as $email) {
@@ -106,7 +106,7 @@ class RunCommand extends Command
                 array_push($newEmails, $email);
             }
         }
-        $user->acorn_IMAP_last_fetch = new Carbon();
+        $user->acorn_imap_last_fetch = new Carbon();
         $user->save();
 
         return $newEmails;

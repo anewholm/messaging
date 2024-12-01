@@ -1,4 +1,4 @@
-name: Inbox
+name: acorn.messaging::lang.models.conversation.inbox
 modelClass: Acorn\Messaging\Models\Message
 form: $/acorn/messaging/models/message/fields.yaml
 defaultRedirect: acorn/messaging/inbox

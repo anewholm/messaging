@@ -4,9 +4,9 @@
             <li
                 class="item conversation-<?= $conversation->itemType ?>"
                 data-item-path="<?= $conversation->id ?>"
-                data-item-theme="<?= e($this->theme->getDirName()) ?>"
+                data-item-theme="<?= e($this->theme?->getDirName()) ?>"
                 data-item-type="<?= $conversation->itemType ?>"
-                data-id="conversation-<?= "$conversation->itemType-" . $this->theme->getDirName() . "-$conversation->id" ?>"
+                data-id="conversation-<?= "$conversation->itemType-" . $this->theme?->getDirName() . "-$conversation->id" ?>"
             >
                 <a href="javascript:;">
                     <span class="title"><?= e($conversation->title) ?></span>
@@ -45,5 +45,5 @@
 <?php endif ?>
 
 <?php if (!isset($nested)): ?>
-    <input type="hidden" name="theme" value="<?= e($this->theme->getDirName()) ?>">
+    <input type="hidden" name="theme" value="<?= e($this->theme?->getDirName()) ?>">
 <?php endif ?>

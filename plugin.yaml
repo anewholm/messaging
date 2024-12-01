@@ -1,6 +1,6 @@
 plugin:
-    name: 'acorn.messaging::lang.plugin.name'
-    description: 'acorn.messaging::lang.plugin.description'
+    name: acorn.messaging::lang.plugin.name
+    description: acorn.messaging::lang.plugin.description
     author: 'Acorn'
     icon: wn-icon-wechat
     replaces: {  }
@@ -10,7 +10,7 @@ permissions:
         tab: acorn.messaging::lang.plugin.name
 navigation:
     messaging-menu-item:
-        label: Messaging
+        label: acorn.messaging::lang.plugin.name
         url: acorn/messaging/conversations
         icon: icon-wechat
         permissions:

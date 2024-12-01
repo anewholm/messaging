@@ -1,8 +1,7 @@
 <?php namespace Acorn\Messaging\Controllers;
 
-use BackendAuth;
-use Backend\Models\User;
-use Backend\Models\UserGroup;
+use Acorn\User\Models\User;
+use Acorn\User\Models\UserGroup;
 use Backend\Classes\Controller;
 use BackendMenu;
 use Flash;
@@ -46,20 +45,21 @@ class Conversations extends Controller
         $widget = new ConversationList($this, 'conversationList', function(){
             // Distinct list of users with active conversations
             // TODO: group by user_id for message count and latest date
-            $authUser  = BackendAuth::user();
-            $user      = NULL; // TODO: $authUser->user(); // Because messages are attached to front-end users now
+            $user      = User::authUser();
             $userQuery = [];
             if ($user) {
-                $userQuery = DB::select(DB::raw("select user_id, count(*) as message_count, max(created_at) as last_message_at from (
+                $userQuery = DB::select(DB::raw("select
+                    user_id, count(*) as message_count, max(created_at) as last_message_at
+                    from (
                         select mm.user_from_id as user_id, mm.created_at
                         from public.acorn_messaging_message mm
                         inner join public.acorn_messaging_message_user mu on mm.id = mu.message_id
-                        where mu.user_id = '$user->ID'
+                        where mu.user_id = '$user->id'
                         union all
                         select mu.user_id, mm.created_at
                         from public.acorn_messaging_message mm
                         inner join public.acorn_messaging_message_user mu on mm.id = mu.message_id
-                        where mm.user_from_id = '$user->ID'
+                        where mm.user_from_id = '$user->id'
                     ) s
                     group by user_id
                     order by max(created_at) desc"
@@ -80,7 +80,7 @@ class Conversations extends Controller
             }
 
             // Groups
-            $groups = $authUser->groups()->get();
+            $groups = $user->groups()->get();
             foreach ($groups as $group) {
                 $group->first_name = $group->name;
                 $group->email = 'group';
@@ -97,7 +97,7 @@ class Conversations extends Controller
 
     public function getConversationUserData(User $withUser)
     {
-        $authUser = BackendAuth::user();
+        $authUser = User::authUser();
 
         // Message table
         // Includes emails from call above
@@ -131,6 +131,13 @@ class Conversations extends Controller
     }
 
 
+    public function getEventHandler($name): string
+    {
+        // TODO: Temporary hack. The Widget server events do not seem to be accessible from theis controller at the moment
+        return $name;
+    }
+
+
     /**
      * View endpoints
      * These are necessary because we are not using the in-built Builder Behaviors
@@ -154,6 +161,11 @@ class Conversations extends Controller
 
         $this->bodyClass = 'compact-container';
         $this->pageTitle = 'Messaging';
+    }
+
+    public function isItemSelected($itemId)
+    {
+        return FALSE;
     }
 
 
@@ -191,7 +203,7 @@ class Conversations extends Controller
     public function onSend()
     {
         $post     = post();
-        $authUser = BackendAuth::user();
+        $authUser = User::authUser();
 
         // New message
         $message = new Message();
@@ -243,12 +255,12 @@ class Conversations extends Controller
         // acorn.messaging.js => onOpen<itemType><itemSubType>()
         // MessageList click => open tab with form
         $ID       = Request::input('path');
-        $authUser = BackendAuth::user();
+        $authUser = User::authUser();
         $inGroup  = UserGroup::find($ID);
 
         // TODO: Form and messages
         $messages = array();
-        $widget   = NULL; 
+        $widget   = NULL;
 
         $tabTitle = $inGroup->name;
         if (stristr($tabTitle, 'group') === FALSE) $tabTitle .= ' group';
@@ -263,17 +275,17 @@ class Conversations extends Controller
                 'templatePath'  => "$authUser->id-$inGroup->id",
                 'templateType'  => 'conversation',
                 'templateSubType' => 'group',
-                'templateTheme' => Theme::getEditTheme()->getDirName(),
+                'templateTheme' => Theme::getEditTheme()?->getDirName(),
             ])
         ];
     }
-    
+
     public function onOpenConversationUser()
     {
         // acorn.messaging.js => onOpen<itemType><itemSubType>()
         // MessageList click => open tab with form
         $ID       = Request::input('path');
-        $authUser = BackendAuth::user();
+        $authUser = User::authUser();
         if ($withUser = User::find($ID)) {
             // Conversation
             $messages = $this->getConversationUserData($withUser);
@@ -306,7 +318,7 @@ class Conversations extends Controller
                 'templatePath'  => "$authUser->id-$withUser->id",
                 'templateType'  => 'conversation',
                 'templateSubType' => 'user',
-                'templateTheme' => Theme::getEditTheme()->getDirName(),
+                'templateTheme' => Theme::getEditTheme()?->getDirName(),
             ])
         ];
     }

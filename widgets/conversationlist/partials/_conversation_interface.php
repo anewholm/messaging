@@ -6,16 +6,16 @@
             <div class="callout callout-warning">
                 <div class="header">
                     <i class="icon-warning"></i>
-                    <h3><?= e(trans('Groups functionality not complete')) ?></h3>
+                    <h3><?= e(trans('acorn.messaging::lang.models.conversation.groups_functionality_not_complete')) ?></h3>
                     <p>
-                        <?= e(trans('sz is busy with other shit man 😴')) ?>
+                        <?= e(trans('acorn.messaging::lang.models.conversation.busy')) ?>
                     </p>
                 </div>
             </div>
-        </div>            
+        </div>
     <?php endif ?>
 
-     <!-- This is the container DIV for the AJAX partial updating -->    
+     <!-- This is the container DIV for the AJAX partial updating -->
     <div id="conversation-<?= $templatePath ?>"
         websocket-listen="messaging"
         websocket-onmessaging-message-<?= $templatePath ?>-update="'conversation': '#conversation-<?= $templatePath ?>'"

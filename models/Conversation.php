@@ -1,6 +1,6 @@
 <?php namespace Acorn\Messaging\Models;
 
-use Backend\Models\User;
+use Acorn\User\Models\User;
 use Acorn\Messaging\Models\Message;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;

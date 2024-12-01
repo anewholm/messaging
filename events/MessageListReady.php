@@ -1,7 +1,7 @@
 <?php namespace Acorn\Messaging\Events;
 
-use Backend\Models\User;
-use Winter\Storm\Database\Collection;
+use Acorn\User\Models\User;
+use Acorn\Collection;
 
 class MessageListReady
 {

@@ -25,88 +25,87 @@ class Plugin extends PluginBase
         Event::listen('mailer.register', function (MailManager $mailmanager, Mailer $mailer) {
             // If the authentiacated user has their own SMTP setup, then use it
             $user = BackendAuth::user();
-            $userHasCustomSetup = ($user->acorn_SMTP_server && $user->acorn_SMTP_username && $user->acorn_SMTP_password);
+            $userHasCustomSetup = ($user->acorn_smtp_server && $user->acorn_smtp_username && $user->acorn_smtp_password);
             if ($userHasCustomSetup) {
-                $mailer->alwaysFrom($user->acorn_SMTP_username, $user->first_name);
+                $mailer->alwaysFrom($user->acorn_smtp_username, $user->first_name);
                 $transport = $mailer->getSymfonyTransport();
                 $stream    = $transport->getStream();
-                $transport->setUsername($user->acorn_SMTP_username);
-                $transport->setPassword($user->acorn_SMTP_password);
-                $stream->setHost($user->acorn_SMTP_server);
-                $stream->setPort($user->acorn_SMTP_port);
+                $transport->setUsername($user->acorn_smtp_username);
+                $transport->setPassword($user->acorn_smtp_password);
+                $stream->setHost($user->acorn_smtp_server);
+                $stream->setPort($user->acorn_smtp_port);
             }
         });
 
         Users::extendFormFields(function ($form, $model, $context) {
             // Defaults
-            if (is_null($model->acorn_IMAP_server))
-                $model->acorn_IMAP_server = Settings::get('default_IMAP_server') ?: 'imap.stackmail.com';
-            if (is_null($model->acorn_IMAP_username))
-                $model->acorn_IMAP_username = $model->email;
-            if (is_null($model->acorn_IMAP_port))
-                $model->acorn_IMAP_port = Settings::get('default_IMAP_port') ?: 993;
-            if (is_null($model->acorn_IMAP_validate_cert))
-                $model->acorn_IMAP_validate_cert = TRUE;
+            if (is_null($model->acorn_imap_server))
+                $model->acorn_imap_server = Settings::get('default_IMAP_server') ?: 'imap.stackmail.com';
+            if (is_null($model->acorn_imap_username))
+                $model->acorn_imap_username = $model->email;
+            if (is_null($model->acorn_imap_port))
+                $model->acorn_imap_port = Settings::get('default_IMAP_port') ?: 993;
+            if (is_null($model->acorn_imap_validate_cert))
+                $model->acorn_imap_validate_cert = TRUE;
             if (is_null($model->acorn_messaging_email_notifications))
                 $model->acorn_messaging_email_notifications = Settings::get('default_email_notifications');
             if (is_null($model->acorn_messaging_sounds))
                 $model->acorn_messaging_sounds = Settings::get('default_sounds');
 
-            if (is_null($model->acorn_SMTP_server))
-                $model->acorn_SMTP_server = Settings::get('default_SMTP_server') ?: 'smtp.stackmail.com';
-            if (is_null($model->acorn_SMTP_port))
-                $model->acorn_SMTP_port = Settings::get('default_SMTP_port') ?: 465;
-            if (is_null($model->acorn_SMTP_username))
-                $model->acorn_SMTP_username = $model->email;
+            if (is_null($model->acorn_smtp_server))
+                $model->acorn_smtp_server = Settings::get('default_SMTP_server') ?: 'smtp.stackmail.com';
+            if (is_null($model->acorn_smtp_port))
+                $model->acorn_smtp_port = Settings::get('default_SMTP_port') ?: 465;
+            if (is_null($model->acorn_smtp_username))
+                $model->acorn_smtp_username = $model->email;
 
             $docroot   = app()->basePath();
             $pluginDir = str_replace($docroot, '~', dirname(__FILE__));
             $form->addTabFields([
                 // --------------------------------------------- IMAP
                 'description_IMAP' => [
-                    'label'   => '',
-                    'tab'     => 'Messaging',
-                    'type'    => 'partial',
-                    'path'    => "$pluginDir/models/_description", // This is a dummy, just to hold the comment
-                    'comment' => '<h2>IMAP mailbox connection settings</h2><p class="help-block">This Messaging plugin is an IMAP email client for reading and sending emails. Below are the <a target="_blank" href="https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol">IMAP</a> settings. Check your email provider, like <a target="_blank" href="https://support.google.com/mail/answer/7126229?hl=en#zippy=%2Cstep-change-smtp-other-settings-in-your-email-client">gmail.com</a>, for the correct setup. If you are already using an email client, like <a target="_blank" href="https://en.wikipedia.org/wiki/Mozilla_Thunderbird">Thunderbird</a>, then you can check the setup in its Accounts section.</p>',
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_imap_section',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
+                    'type'    => 'section',
+                    'comment' => 'acorn.messaging::lang.models.user.acorn_imap_comment',
                     'commentHtml' => TRUE,
                 ],
-                'acorn_IMAP_username' => [
-                    'label'   => 'Username',
-                    'tab'     => 'Messaging',
+                'acorn_imap_username' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_imap_username',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'left',
                     'type'    => 'text',
                     'comment' => 'This is usually just your email address',
                     'required' => FALSE,
                 ],
-                'acorn_IMAP_password' => [
-                    'label'   => 'Password',
-                    'tab'     => 'Messaging',
+                'acorn_imap_password' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_imap_password',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'right',
                     'type'    => 'sensitive',
                     'required' => FALSE,
                 ],
 
-                'acorn_IMAP_server' => [
-                    'label'   => 'Server',
-                    'tab'     => 'Messaging',
+                'acorn_imap_server' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_imap_server',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'left',
                     'type'    => 'text',
                     'comment' => 'This is often just imap + your provider domain name. For example: imap.gmail.com',
                     'required' => TRUE,
                 ],
-                'acorn_IMAP_port' => [
-                    'label'   => 'Port',
-                    'tab'     => 'Messaging',
+                'acorn_imap_port' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_imap_port',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'right',
                     'type'    => 'number',
                     'comment' => 'It is rare for this not to be the default, 993',
                     'required' => TRUE,
                 ],
 
-                'acorn_IMAP_protocol' => [
-                    'label'   => 'Protocol',
-                    'tab'     => 'Messaging',
+                'acorn_imap_protocol' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_imap_protocol',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'left',
                     'type'    => 'dropdown',
                     'options' => [
@@ -116,9 +115,9 @@ class Plugin extends PluginBase
                     ],
                     'required' => TRUE,
                 ],
-                'acorn_IMAP_encryption' => [
-                    'label'   => 'Encryption',
-                    'tab'     => 'Messaging',
+                'acorn_imap_encryption' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_imap_encryption',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'right',
                     'type'    => 'dropdown',
                     'options' => [
@@ -130,46 +129,45 @@ class Plugin extends PluginBase
                     'required' => TRUE,
                 ],
 
-                'acorn_IMAP_authentication' => [
-                    'label'   => 'Authentication',
-                    'tab'     => 'Messaging',
+                'acorn_imap_authentication' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_imap_authentication',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'left',
                     'type'    => 'text',
                 ],
-                'acorn_IMAP_validate_cert' => [
-                    'label'   => 'Validate Certificate',
-                    'tab'     => 'Messaging',
+                'acorn_imap_validate_cert' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_imap_validate_cert',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'right',
                     'type'    => 'checkbox',
                 ],
 
                 // --------------------------------------------- SMTP
                 'description_SMTP' => [
-                    'label'   => '',
-                    'tab'     => 'Messaging',
-                    'type'    => 'partial',
-                    'path'    => "$pluginDir/models/_description", // This is a dummy, just to hold the comment
-                    'comment' => '<hr/><h2>SMTP settings</h2><p class="help-block">Outgoing email using the <a target="_blank" href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a> protocol.</p>',
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_smtp_section',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
+                    'type'    => 'section',
+                    'comment' => 'acorn.messaging::lang.models.user.acorn_smtp_comment',
                     'commentHtml' => TRUE,
                 ],
-                'acorn_SMTP_server' => [
-                    'label'   => 'Server',
-                    'tab'     => 'Messaging',
+                'acorn_smtp_server' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_smtp_server',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'left',
                     'type'    => 'text',
                     'comment' => 'This is often just smtp + your provider domain name. For example: smtp.gmail.com',
                     'required' => FALSE,
                 ],
-                'acorn_SMTP_port' => [
-                    'label'   => 'Port',
-                    'tab'     => 'Messaging',
+                'acorn_smtp_port' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_smtp_port',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'right',
                     'type'    => 'number',
                     'required' => TRUE,
                 ],
-                'acorn_SMTP_encryption' => [
-                    'label'   => 'Encryption',
-                    'tab'     => 'Messaging',
+                'acorn_smtp_encryption' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_smtp_encryption',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'left',
                     'type'    => 'dropdown',
                     'options' => [
@@ -179,9 +177,9 @@ class Plugin extends PluginBase
                     ],
                     'required' => TRUE,
                 ],
-                'acorn_SMTP_authentication' => [
-                    'label'   => 'Authentication Method',
-                    'tab'     => 'Messaging',
+                'acorn_smtp_authentication' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_smtp_authentication',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'right',
                     'type'    => 'dropdown',
                     //'readOnly' => TRUE,
@@ -190,17 +188,17 @@ class Plugin extends PluginBase
                     ],
                     'required' => TRUE,
                 ],
-                'acorn_SMTP_username' => [
-                    'label'   => 'Username',
-                    'tab'     => 'Messaging',
+                'acorn_smtp_username' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_smtp_username',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'left',
                     'type'    => 'text',
                     'comment' => 'This is usually just your email address',
                     'required' => FALSE,
                 ],
-                'acorn_SMTP_password' => [
-                    'label'   => 'Password',
-                    'tab'     => 'Messaging',
+                'acorn_smtp_password' => [
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_smtp_password',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
                     'span'    => 'right',
                     'type'    => 'sensitive',
                     'required' => FALSE,
@@ -208,16 +206,13 @@ class Plugin extends PluginBase
 
                 // --------------------------------------------- General
                 'description_general' => [
-                    'label'   => '',
-                    'tab'     => 'Messaging',
-                    'type'    => 'partial',
-                    'path'    => "$pluginDir/models/_description", // This is a dummy, just to hold the comment
-                    'comment' => '<hr/><h2>General settings</h2>',
-                    'commentHtml' => TRUE,
+                    'label'   => 'acorn.messaging::lang.models.user.acorn_general_section',
+                    'tab'     => 'acorn.messaging::lang.plugin.name',
+                    'type'    => 'section',
                 ],
                 'acorn_messaging_email_notifications' => [
-                    'label' => 'Your Email Notifications',
-                    'tab'   => 'Messaging',
+                    'label' => 'acorn.messaging::lang.models.settings.your_email_notifications',
+                    'tab'   => 'acorn.messaging::lang.plugin.name',
                     'type' => 'dropdown',
                     'span' => 'left',
                     'comment' => 'Send emails to your email address when a message is received.',
@@ -230,10 +225,10 @@ class Plugin extends PluginBase
                 ],
                 'acorn_messaging_sounds' => [
                     'label' => 'Sound alerts',
-                    'tab'   => 'Messaging',
+                    'tab'   => 'acorn.messaging::lang.plugin.name',
                     'type' => 'checkbox',
                     'span' => 'right',
-                    'comment' => 'Play a sound when a message arrives (like Facebook)',
+                    'comment' => 'acorn.messaging::lang.models.settings.play_sound',
                 ],
             ]);
         });
@@ -249,8 +244,8 @@ class Plugin extends PluginBase
     {
         return [
             'settings' => [
-                'label'       => 'Messaging Settings',
-                'description' => 'Manage messaging based settings.',
+                'label'       => 'acorn.messaging::lang.models.settings.settings',
+                'description' => 'acorn.messaging::lang.models.settings.settings_description',
                 'category'    => 'Acorn',
                 'icon'        => 'icon-wechat',
                 'class'       => 'Acorn\Messaging\Models\Settings',

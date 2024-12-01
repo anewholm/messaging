@@ -1,12 +1,11 @@
 <?php namespace Acorn\Messaging\Models;
 
-use \Acorn\Model as AcornModel;
+use \Acorn\Model as Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use BackendAuth;
 use Flash;
-use Backend\Models\UserRole;
-use Backend\Models\UserGroup;
-use Backend\Models\User;
+use Acorn\User\Models\UserRole;
+use Acorn\User\Models\UserGroup;
+use Acorn\User\Models\User;
 use Acorn\Calendar\Models\Event;
 use Acorn\Messaging\Events\MessageNew;
 use Acorn\Messaging\Events\MessageUpdated;
@@ -15,7 +14,7 @@ use Illuminate\Broadcasting\BroadcastException;
 /**
  * Model
  */
-class Message extends AcornModel
+class Message extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
 
@@ -29,7 +28,7 @@ class Message extends AcornModel
         'users' => [
             User::class,
             'table' => 'acorn_messaging_message_user',
-            'order' => 'first_name',
+            'order' => 'name',
         ],
         'groups' => [
             UserGroup::class,
@@ -91,7 +90,7 @@ class Message extends AcornModel
         $userFrom = &$this->user_from;
         foreach ($this->users as &$userTo) {
             // Conversation lists
-            // TODO: But these contexts only need to be updated 
+            // TODO: But these contexts only need to be updated
             // if a conversation with someone new has started
             array_push($contexts, "$userFrom->id");
             array_push($contexts, "$userTo->id");
@@ -158,7 +157,7 @@ class Message extends AcornModel
 
     public function typeClasses()
     {
-        $user = BackendAuth::user();
+        $user = User::authUser();
         return array(
             ($this->user_from_id == $user->id ? 'sent' : 'received'),
             $this->source,

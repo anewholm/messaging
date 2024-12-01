@@ -1,7 +1,6 @@
 <?php namespace Acorn\Messaging\Widgets;
 
-use BackendAuth;
-use Backend\Models\User;
+use Acorn\User\Models\User;
 use Str;
 use File;
 use Input;
@@ -66,6 +65,8 @@ class ConversationList extends WidgetBase
         }
 
         $this->bindToController();
+
+        $this->controller->addViewPath('~/plugins/acorn/messaging/widgets/conversationlist/partials');
     }
 
     /**
@@ -75,7 +76,7 @@ class ConversationList extends WidgetBase
     public function render()
     {
         $toolbarClass = Str::contains($this->controlClass, 'hero') ? 'separator' : null;
-        $authUser     = BackendAuth::user();
+        $authUser     = User::authUser();
 
         $this->vars['toolbarClass'] = $toolbarClass;
 
@@ -84,7 +85,7 @@ class ConversationList extends WidgetBase
         if (!$conversations) {
             // TODO: This is only for the initial get
             // for testing purposes
-            $authUser = BackendAuth::user();
+            $authUser = User::authUser();
             try {
                 $conversations = $this->getData();
             } catch (Exception $ex) {}
@@ -115,7 +116,7 @@ class ConversationList extends WidgetBase
         $conv      = NULL;
 
         // Trap errors, label conversations with IDs
-        if (isset($post['context']) 
+        if (isset($post['context'])
             && is_array($post['context'])
             && count($post['context']) == 4
         ) {
@@ -125,7 +126,7 @@ class ConversationList extends WidgetBase
             if ($withUser = User::find($userToID)) {
                 // This returns an array:
                 //   result => success
-                //   conversation => HTML from the _conversation partial 
+                //   conversation => HTML from the _conversation partial
                 $result = $this->onRefreshConversation($withUser);
             }
         } else {
@@ -147,7 +148,7 @@ class ConversationList extends WidgetBase
 
         if (isset($post['users'][0])) {
             $ID       = $post['users'][0];
-            $authUser = BackendAuth::user();
+            $authUser = User::authUser();
             if ($withUser = User::find($ID)) {
                 // Create Message
                 $post['user_from'] = $authUser;
@@ -226,7 +227,7 @@ class ConversationList extends WidgetBase
     {
         // Refresh Conversation
         $messages = $this->controller->getConversationUserData($withUser);
-        $authUser = BackendAuth::user();
+        $authUser = User::authUser();
 
         // Variables and title
         $this->vars['authUser']     = $authUser;
@@ -396,7 +397,7 @@ class ConversationList extends WidgetBase
         // getId(suffix) returns class_basename()-alias-suffix
         // e.g. MessageList-messageList-messages
         $searchSystemId   = '#' . $this->getId('messages');
-        $authUser         = BackendAuth::user();
+        $authUser         = User::authUser();
         $conversations    = $this->getData();
         $conversationList = $this->makePartial('conversation_list', [
             'authUser'      => $authUser,
@@ -454,7 +455,7 @@ class ConversationList extends WidgetBase
 
     protected function getThemeSessionKey($prefix)
     {
-        return $prefix . $this->theme->getDirName();
+        return $prefix . $this->theme?->getDirName();
     }
 
     protected function getSortingProperty()
