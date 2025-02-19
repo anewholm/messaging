@@ -1,14 +1,14 @@
-<?php namespace Acorn\Messaging\Updates;
+<?php namespace AcornAssociated\Messaging\Updates;
 
 use DB;
 use Schema;
-use \Acorn\Migration;
+use \AcornAssociated\Migration;
 
-class BuilderTableCreateAcornMessagingMessage extends Migration
+class BuilderTableCreateAcornassociatedMessagingMessage extends Migration
 {
     public function up()
     {
-        Schema::create('acorn_messaging_message', function($table)
+        Schema::create('acornassociated_messaging_message', function($table)
         {
             $table->engine = 'InnoDB';
             $table->uuid('id')->primary()->default(DB::raw('(gen_random_uuid())'));
@@ -24,11 +24,11 @@ class BuilderTableCreateAcornMessagingMessage extends Migration
             $table->timestamp('updated_at')->nullable();
         });
 
-        $this->setTableTypeContent('acorn_messaging_message');
+        $this->setTableTypeContent('acornassociated_messaging_message');
     }
 
     public function down()
     {
-        Schema::dropIfExists('acorn_messaging_message');
+        Schema::dropIfExists('acornassociated_messaging_message');
     }
 }

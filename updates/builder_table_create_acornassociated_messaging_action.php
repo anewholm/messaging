@@ -1,13 +1,13 @@
-<?php namespace Acorn\Messaging\Updates;
+<?php namespace AcornAssociated\Messaging\Updates;
 
 use Schema;
 use Winter\Storm\Database\Updates\Migration;
 
-class BuilderTableCreateAcornMessagingAction extends Migration
+class BuilderTableCreateAcornassociatedMessagingAction extends Migration
 {
     public function up()
     {
-        Schema::create('acorn_messaging_action', function($table)
+        Schema::create('acornassociated_messaging_action', function($table)
         {
             $table->engine = 'InnoDB';
             $table->uuid('message_id');
@@ -21,6 +21,6 @@ class BuilderTableCreateAcornMessagingAction extends Migration
     
     public function down()
     {
-        Schema::dropIfExists('acorn_messaging_action');
+        Schema::dropIfExists('acornassociated_messaging_action');
     }
 }

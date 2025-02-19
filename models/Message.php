@@ -1,14 +1,14 @@
-<?php namespace Acorn\Messaging\Models;
+<?php namespace AcornAssociated\Messaging\Models;
 
-use \Acorn\Model as Model;
+use \AcornAssociated\Model as Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Flash;
-use Acorn\User\Models\UserRole;
-use Acorn\User\Models\UserGroup;
-use Acorn\User\Models\User;
-use Acorn\Calendar\Models\Event;
-use Acorn\Messaging\Events\MessageNew;
-use Acorn\Messaging\Events\MessageUpdated;
+use AcornAssociated\User\Models\UserRole;
+use AcornAssociated\User\Models\UserGroup;
+use AcornAssociated\User\Models\User;
+use AcornAssociated\Calendar\Models\Event;
+use AcornAssociated\Messaging\Events\MessageNew;
+use AcornAssociated\Messaging\Events\MessageUpdated;
 use Illuminate\Broadcasting\BroadcastException;
 
 /**
@@ -18,7 +18,7 @@ class Message extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
 
-    public $table = 'acorn_messaging_message';
+    public $table = 'acornassociated_messaging_message';
 
     public $belongsTo = [
         'user_from' => User::class
@@ -27,17 +27,17 @@ class Message extends Model
     public $belongsToMany = [
         'users' => [
             User::class,
-            'table' => 'acorn_messaging_message_user',
+            'table' => 'acornassociated_messaging_message_user',
             'order' => 'name',
         ],
         'groups' => [
             UserGroup::class,
-            'table' => 'acorn_messaging_message_user_group',
+            'table' => 'acornassociated_messaging_message_user_group',
             'order' => 'name',
         ],
         'roles' => [
             UserGroup::class,
-            'table' => 'acorn_messaging_message_user_role',
+            'table' => 'acornassociated_messaging_message_user_role',
             'order' => 'name',
         ],
     ];
@@ -69,7 +69,7 @@ class Message extends Model
         $isNew  = !isset($this->id);
         $result = parent::save($options, $sessionKey);
 
-        // Additional Acorn\Messaging plugin inform
+        // Additional AcornAssociated\Messaging plugin inform
         if (!isset($options['WEBSOCKET']) || $options['WEBSOCKET'] == TRUE) {
             try {
                 if ($isNew) MessageNew::dispatch($this);
@@ -106,7 +106,7 @@ class Message extends Model
      */
     public function event()
     {
-        return $this->belongsTo('Acorn\Calendar\Models\Event');
+        return $this->belongsTo('AcornAssociated\Calendar\Models\Event');
     }
 
     public function user()

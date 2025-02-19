@@ -1,19 +1,19 @@
-<?php namespace Acorn\Messaging\Models;
+<?php namespace AcornAssociated\Messaging\Models;
 
-use \Acorn\Model as AcornModel;
+use \AcornAssociated\Model as AcornAssociatedModel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Message;
 
-class Status extends AcornModel
+class Status extends AcornAssociatedModel
 {
     use \Winter\Storm\Database\Traits\Validation;
 
-    public $table = 'acorn_messaging_status';
+    public $table = 'acornassociated_messaging_status';
 
     public $belongsToMany = [
         'messages' => [
             Message::class,
-            'table' => 'acorn_messaging_user_message_status',
+            'table' => 'acornassociated_messaging_user_message_status',
         ],
     ];
 

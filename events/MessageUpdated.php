@@ -1,4 +1,4 @@
-<?php namespace Acorn\Messaging\Events;
+<?php namespace AcornAssociated\Messaging\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -9,7 +9,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
 
-use Acorn\Messaging\Models\Message;
+use AcornAssociated\Messaging\Models\Message;
 
 class MessageUpdated implements ShouldBroadcast
 {

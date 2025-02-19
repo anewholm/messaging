@@ -1,14 +1,14 @@
-<?php namespace Acorn\Messaging\Updates;
+<?php namespace AcornAssociated\Messaging\Updates;
 
 use DB;
 use Schema;
 use Winter\Storm\Database\Updates\Migration;
 
-class BuilderTableCreateAcornMessagingLabel extends Migration
+class BuilderTableCreateAcornassociatedMessagingLabel extends Migration
 {
     public function up()
     {
-        Schema::create('acorn_messaging_label', function($table)
+        Schema::create('acornassociated_messaging_label', function($table)
         {
             // TODO: A replacement for the labels field
             $table->engine = 'InnoDB';
@@ -22,6 +22,6 @@ class BuilderTableCreateAcornMessagingLabel extends Migration
     
     public function down()
     {
-        Schema::dropIfExists('acorn_messaging_label');
+        Schema::dropIfExists('acornassociated_messaging_label');
     }
 }
