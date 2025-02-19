@@ -7,7 +7,7 @@
             data-request="conversationList::onReply"
             data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
             data-hotkey="ctrl+s, cmd+s">
-            <?= e(trans('acornassociated.messaging::lang.models.message.reply')) ?>
+            <?= e(trans('acorn.messaging::lang.models.message.reply')) ?>
         </a>
     <?php else: ?>
         <!-- TODO: data-request-update="'conversations': '.conversation-list'" -->
@@ -17,7 +17,7 @@
             data-request="onSend"
             data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
             data-hotkey="ctrl+s, cmd+s">
-            <?= e(trans('acornassociated.messaging::lang.models.message.send')) ?>
+            <?= e(trans('acorn.messaging::lang.models.message.send')) ?>
         </a>
     <?php endif ?>
 
@@ -27,6 +27,6 @@
         data-request="onSaveDraft"
         data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
         data-hotkey="ctrl+s, cmd+s">
-        <?= e(trans('acornassociated.messaging::lang.models.message.save_draft')) ?>
+        <?= e(trans('acorn.messaging::lang.models.message.save_draft')) ?>
     </a -->
 </div>

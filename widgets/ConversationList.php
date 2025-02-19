@@ -1,6 +1,6 @@
-<?php namespace AcornAssociated\Messaging\Widgets;
+<?php namespace Acorn\Messaging\Widgets;
 
-use AcornAssociated\User\Models\User;
+use Acorn\User\Models\User;
 use Str;
 use File;
 use Input;
@@ -11,18 +11,18 @@ use Exception;
 use Winter\Storm\Support\Facades\Mail;
 use ApplicationException;
 
-use AcornAssociated\Messaging\Widgets\MessageList;
-use AcornAssociated\Messaging\Widgets\ConversationList;
-use AcornAssociated\Messaging\Classes\IMAP;
-use AcornAssociated\Messaging\Models\Message;
+use Acorn\Messaging\Widgets\MessageList;
+use Acorn\Messaging\Widgets\ConversationList;
+use Acorn\Messaging\Classes\IMAP;
+use Acorn\Messaging\Models\Message;
 use Illuminate\Mail\SentMessage;
 
 /**
  * Conversation list widget.
  * This widget displays messages, emails and groups.
  *
- * @package acornassociated/messaging
- * @author Sanchez
+ * @package acorn/messaging
+ * @author sz
  */
 class ConversationList extends WidgetBase
 {
@@ -66,7 +66,7 @@ class ConversationList extends WidgetBase
 
         $this->bindToController();
 
-        $this->controller->addViewPath('~/plugins/acornassociated/messaging/widgets/conversationlist/partials');
+        $this->controller->addViewPath('~/plugins/acorn/messaging/widgets/conversationlist/partials');
     }
 
     /**
@@ -101,7 +101,7 @@ class ConversationList extends WidgetBase
     protected function loadAssets()
     {
         $asModule = array('type' => 'module');
-        $this->addJs('/modules/acornassociated/assets/js/acornassociated.websocket.js', $asModule);
+        $this->addJs('/modules/acorn/assets/js/acorn.websocket.js', $asModule);
     }
 
     /*
@@ -187,7 +187,7 @@ class ConversationList extends WidgetBase
                     );
 
                     $template = NULL;
-                    switch ($toUser->acornassociated_messaging_email_notifications) {
+                    switch ($toUser->acorn_messaging_email_notifications) {
                         case 'A': // All messages
                             $template = 'email_template_all_messages';
                             break;
@@ -204,7 +204,7 @@ class ConversationList extends WidgetBase
                         // TODO: HTML / text?
                         // TODO: Attachements? MIME sections? IDs?
                         $options = array();
-                        $result  = Mail::sendTo($recipients, 'acornassociated.messaging::mail.message', $vars, function($message) {
+                        $result  = Mail::sendTo($recipients, 'acorn.messaging::mail.message', $vars, function($message) {
                             // TODO: Attach a file from a raw $data string...
                             // $message->attachData($data, $name, array $options = []);
                         }, $options);

@@ -1,4 +1,4 @@
-<?php namespace AcornAssociated\Messaging\Models;
+<?php namespace Acorn\Messaging\Models;
 
 use Model;
 use BackendMenu;
@@ -9,7 +9,7 @@ class Settings extends Model
     public $implement = ['System.Behaviors.SettingsModel'];
 
     // A unique code
-    public $settingsCode = 'acornassociated_messaging_settings';
+    public $settingsCode = 'acorn_messaging_settings';
 
     // Reference to field configuration
     public $settingsFields = 'fields.yaml';
@@ -21,8 +21,8 @@ class Settings extends Model
     {
         parent::__construct($attributes);
 
-        BackendMenu::setContext('AcornAssociated.Messaging', 'system', 'settings');
-        SettingsManager::setContext('AcornAssociated.Messaging', 'settings');
+        BackendMenu::setContext('Acorn.Messaging', 'system', 'settings');
+        SettingsManager::setContext('Acorn.Messaging', 'settings');
     }
 
     public function initSettingsData()

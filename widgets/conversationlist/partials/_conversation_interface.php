@@ -6,9 +6,9 @@
             <div class="callout callout-warning">
                 <div class="header">
                     <i class="icon-warning"></i>
-                    <h3><?= e(trans('acornassociated.messaging::lang.models.conversation.groups_functionality_not_complete')) ?></h3>
+                    <h3><?= e(trans('acorn.messaging::lang.models.conversation.groups_functionality_not_complete')) ?></h3>
                     <p>
-                        <?= e(trans('acornassociated.messaging::lang.models.conversation.busy')) ?>
+                        <?= e(trans('acorn.messaging::lang.models.conversation.busy')) ?>
                     </p>
                 </div>
             </div>
@@ -19,7 +19,7 @@
     <div id="conversation-<?= $templatePath ?>"
         websocket-listen="messaging"
         websocket-onmessaging-message-<?= $templatePath ?>-update="'conversation': '#conversation-<?= $templatePath ?>'"
-        websocket-onmessaging-message-<?= $templatePath ?>-sound="/plugins/acornassociated/messaging/assets/sounds/message-arrived.mp3"
+        websocket-onmessaging-message-<?= $templatePath ?>-sound="/plugins/acorn/messaging/assets/sounds/message-arrived.mp3"
     >
        <?= $this->makePartial('conversation', array(
             'templatePath' => $templatePath,
