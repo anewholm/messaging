@@ -98,12 +98,6 @@ class ConversationList extends WidgetBase
         return $result;
     }
 
-    protected function loadAssets()
-    {
-        $asModule = array('type' => 'module');
-        $this->addJs('/modules/acorn/assets/js/acorn.websocket.js', $asModule);
-    }
-
     /*
      * Event handlers
      */

@@ -70,16 +70,18 @@ class Message extends Model
         $result = parent::save($options, $sessionKey);
 
         // Additional Acorn\Messaging plugin inform
+        // TODO: This custom WEBSOCKET needs to be changed to the new AA generic DataChange system
+        /*
         if (!isset($options['WEBSOCKET']) || $options['WEBSOCKET'] == TRUE) {
             try {
                 if ($isNew) MessageNew::dispatch($this);
                 else        MessageUpdated::dispatch($this);
             } catch (BroadcastException $ex) {
-                // TODO: Just in case WebSockets not running
                 // we demote this to a flash
-                Flash::error('WebSockets failed: ' . $ex->getMessage());
+                if (env('APP_DEBUG')) Flash::error('WebSockets failed: ' . $ex->getMessage());
             }
         }
+        */
 
         return $result;
     }
