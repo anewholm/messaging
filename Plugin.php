@@ -4,6 +4,7 @@ use System\Classes\PluginBase;
 use Acorn\User\Controllers\Users;
 use BackendAuth;
 use Acorn\Messaging\Models\Settings;
+use Acorn\Messaging\Console\RunCommand;
 
 use Event;
 use \Winter\Storm\Mail\Mailer;
@@ -236,7 +237,7 @@ class Plugin extends PluginBase
 
     public function register()
     {
-        $this->registerConsoleCommand('messaging.run', 'Acorn\Messaging\Console\RunCommand');
+        $this->registerConsoleCommand('messaging.run', RunCommand::class);
     }
 
 

@@ -1,10 +1,10 @@
 <?php namespace Acorn\Messaging\Models;
 
-use \Acorn\Model as AcornModel;
+use \Acorn\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Message;
 
-class Status extends AcornModel
+class Status extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
 
