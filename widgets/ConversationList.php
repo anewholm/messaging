@@ -12,7 +12,6 @@ use Winter\Storm\Support\Facades\Mail;
 use ApplicationException;
 
 use Acorn\Messaging\Widgets\MessageList;
-use Acorn\Messaging\Widgets\ConversationList;
 use Acorn\Messaging\Classes\IMAP;
 use Acorn\Messaging\Models\Message;
 use Illuminate\Mail\SentMessage;
