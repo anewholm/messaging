@@ -1,4 +1,4 @@
-function acornassociated_public_conversation(id) {
+function acorn_public_conversation(id) {
     // #!/conversation/<x> direct open up of a conversation tab
     // TODO: Make group/user sub-type aware
     console.log('open conversation [' + id + ']');

@@ -13,7 +13,7 @@
             websocket-listen="messaging"
             websocket-onmessaging-message-<?= $authUser->id ?>-update="'conversation_list': '#<?= $this->getId('messages') ?>'"
             websocket-onmessaging-message-<?= $authUser->id ?>-request="conversationList::onUpdate"
-            websocket-onmessaging-message-<?= $authUser->id ?>-sound="/plugins/acornassociated/messaging/assets/sounds/conversation-arrived.mp3"
+            websocket-onmessaging-message-<?= $authUser->id ?>-sound="/plugins/acorn/messaging/assets/sounds/conversation-arrived.mp3"
         >
             <?= $conversations
                 ? $this->makePartial('conversation_list', [

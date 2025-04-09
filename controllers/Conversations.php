@@ -1,7 +1,7 @@
-<?php namespace AcornAssociated\Messaging\Controllers;
+<?php namespace Acorn\Messaging\Controllers;
 
-use AcornAssociated\User\Models\User;
-use AcornAssociated\User\Models\UserGroup;
+use Acorn\User\Models\User;
+use Acorn\User\Models\UserGroup;
 use Backend\Classes\Controller;
 use BackendMenu;
 use Flash;
@@ -12,16 +12,16 @@ use ApplicationException;
 use Carbon\Carbon;
 use Winter\Storm\Database\Collection;
 
-use AcornAssociated\Messaging\Widgets\MessageList;
-use AcornAssociated\Messaging\Widgets\ConversationList;
-use AcornAssociated\Messaging\Classes\IMAP;
-use AcornAssociated\Messaging\Models\Message;
-use AcornAssociated\Messaging\Models\Conversation;
-use AcornAssociated\Messaging\Events\MessageListReady;
+use Acorn\Messaging\Widgets\MessageList;
+use Acorn\Messaging\Widgets\ConversationList;
+use Acorn\Messaging\Classes\IMAP;
+use Acorn\Messaging\Models\Message;
+use Acorn\Messaging\Models\Conversation;
+use Acorn\Messaging\Events\MessageListReady;
 
-use AcornAssociated\Calendar\Widgets\Calendars;
-use AcornAssociated\Calendar\Models\EventPart;
-use AcornAssociated\Calendar\Models\Instance;
+use Acorn\Calendar\Widgets\Calendars;
+use Acorn\Calendar\Models\EventPart;
+use Acorn\Calendar\Models\Instance;
 
 class Conversations extends Controller
 {
@@ -40,7 +40,7 @@ class Conversations extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('AcornAssociated.Messaging', 'messaging-menu-item', 'inbox-side-menu-item');
+        BackendMenu::setContext('Acorn.Messaging', 'messaging-menu-item', 'inbox-side-menu-item');
 
         $widget = new ConversationList($this, 'conversationList', function(){
             // Distinct list of users with active conversations
@@ -52,13 +52,13 @@ class Conversations extends Controller
                     user_id, count(*) as message_count, max(created_at) as last_message_at
                     from (
                         select mm.user_from_id as user_id, mm.created_at
-                        from public.acornassociated_messaging_message mm
-                        inner join public.acornassociated_messaging_message_user mu on mm.id = mu.message_id
+                        from public.acorn_messaging_message mm
+                        inner join public.acorn_messaging_message_user mu on mm.id = mu.message_id
                         where mu.user_id = '$user->id'
                         union all
                         select mu.user_id, mm.created_at
-                        from public.acornassociated_messaging_message mm
-                        inner join public.acornassociated_messaging_message_user mu on mm.id = mu.message_id
+                        from public.acorn_messaging_message mm
+                        inner join public.acorn_messaging_message_user mu on mm.id = mu.message_id
                         where mm.user_from_id = '$user->id'
                     ) s
                     group by user_id
@@ -146,9 +146,9 @@ class Conversations extends Controller
     {
         // Copied from the CMS Controller
         // winter.cmspage.js => onOpenTemplate() & onCreateMessage()
-        $this->addJs('/modules/acornassociated/assets/js/acornassociated.js');
-        $this->addJs('/plugins/acornassociated/messaging/assets/js/acornassociated.messaging.js', 'core');
-        $this->addCss('/plugins/acornassociated/messaging/assets/css/acornassociated.messaging.css', 'core');
+        $this->addJs('/modules/acorn/assets/js/acorn.js');
+        $this->addJs('/plugins/acorn/messaging/assets/js/acorn.messaging.js', 'core');
+        $this->addCss('/plugins/acorn/messaging/assets/css/acorn.messaging.css', 'core');
 
         // TODO: Are these necessary?
         $this->addJs('/modules/cms/assets/js/winter.dragcomponents.js', 'core');
@@ -179,7 +179,7 @@ class Conversations extends Controller
     {
         // Create Message => open tab with form
         $message      = new Message();
-        $widgetConfig = $this->makeConfig('~/plugins/acornassociated/messaging/models/message/fields.yaml');
+        $widgetConfig = $this->makeConfig('~/plugins/acorn/messaging/models/message/fields.yaml');
         $widgetConfig->model = $message;
         $widget       = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
 
@@ -229,7 +229,7 @@ class Conversations extends Controller
     {
         // Create Message => open tab with form
         $message      = new Message();
-        $widgetConfig = $this->makeConfig('~/plugins/acornassociated/messaging/models/message/fields.yaml');
+        $widgetConfig = $this->makeConfig('~/plugins/acorn/messaging/models/message/fields.yaml');
         $widgetConfig->model = $message;
         $widget       = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
 
@@ -252,7 +252,7 @@ class Conversations extends Controller
 
     public function onOpenConversationGroup()
     {
-        // acornassociated.messaging.js => onOpen<itemType><itemSubType>()
+        // acorn.messaging.js => onOpen<itemType><itemSubType>()
         // MessageList click => open tab with form
         $ID       = Request::input('path');
         $authUser = User::authUser();
@@ -282,7 +282,7 @@ class Conversations extends Controller
 
     public function onOpenConversationUser()
     {
-        // acornassociated.messaging.js => onOpen<itemType><itemSubType>()
+        // acorn.messaging.js => onOpen<itemType><itemSubType>()
         // MessageList click => open tab with form
         $ID       = Request::input('path');
         $authUser = User::authUser();
@@ -294,7 +294,7 @@ class Conversations extends Controller
             $newMessage = new Message(array(
                 'users' => array($withUser->id))
             );
-            $widgetConfig = $this->makeConfig('~/plugins/acornassociated/messaging/models/message/fields.yaml');
+            $widgetConfig = $this->makeConfig('~/plugins/acorn/messaging/models/message/fields.yaml');
             $fieldUsers  = &$widgetConfig->tabs['fields']['users'];
             $fieldGroups = &$widgetConfig->tabs['fields']['groups'];
             $widgetConfig->model = $newMessage;
@@ -330,11 +330,11 @@ class Conversations extends Controller
 
     public function onOpenMessage()
     {
-        // acornassociated.messaging.js => onOpen<itemType>()
+        // acorn.messaging.js => onOpen<itemType>()
         // MessageList click => open tab with form
         $ID = Request::input('path');
         if ($message = Message::find($ID)) {
-            $widgetConfig = $this->makeConfig('~/plugins/acornassociated/messaging/models/message/fields.yaml');
+            $widgetConfig = $this->makeConfig('~/plugins/acorn/messaging/models/message/fields.yaml');
             $widgetConfig->model = $message;
             $widget       = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
 

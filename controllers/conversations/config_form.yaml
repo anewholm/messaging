@@ -1,11 +1,11 @@
-name: acornassociated.messaging::lang.models.conversation.inbox
-modelClass: AcornAssociated\Messaging\Models\Message
-form: $/acornassociated/messaging/models/message/fields.yaml
-defaultRedirect: acornassociated/messaging/inbox
+name: acorn.messaging::lang.models.conversation.inbox
+modelClass: Acorn\Messaging\Models\Message
+form: $/acorn/messaging/models/message/fields.yaml
+defaultRedirect: acorn/messaging/inbox
 create:
-    redirect: 'acornassociated/messaging/inbox/update/:id'
-    redirectClose: acornassociated/messaging/inbox
+    redirect: 'acorn/messaging/inbox/update/:id'
+    redirectClose: acorn/messaging/inbox
 update:
-    redirect: acornassociated/messaging/inbox
-    redirectClose: acornassociated/messaging/inbox
+    redirect: acorn/messaging/inbox
+    redirectClose: acorn/messaging/inbox
 preview: {  }
