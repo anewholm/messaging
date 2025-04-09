@@ -1,17 +1,17 @@
 plugin:
-    name: acorn.messaging::lang.plugin.name
-    description: acorn.messaging::lang.plugin.description
-    author: 'Acorn'
+    name: acornassociated.messaging::lang.plugin.name
+    description: acornassociated.messaging::lang.plugin.description
+    author: 'Acorn Associated'
     icon: wn-icon-wechat
     replaces: {  }
 permissions:
-    acorn_messaging:
-        label: acorn.messaging::lang.permissions.view_messages
-        tab: acorn.messaging::lang.plugin.name
+    acornassociated_messaging:
+        label: acornassociated.messaging::lang.permissions.view_messages
+        tab: acornassociated.messaging::lang.plugin.name
 navigation:
     messaging-menu-item:
-        label: acorn.messaging::lang.plugin.name
-        url: acorn/messaging/conversations
+        label: acornassociated.messaging::lang.plugin.name
+        url: acornassociated/messaging/conversations
         icon: icon-wechat
         permissions:
-            - acorn_messaging
+            - acornassociated_messaging

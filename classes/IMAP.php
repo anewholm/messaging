@@ -1,4 +1,4 @@
-<?php namespace Acorn\Messaging\Classes;
+<?php namespace AcornAssociated\Messaging\Classes;
 
 use Str;
 use File;
@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Input;
 use Request;
 use Cms\Classes\Theme;
-use \Acorn\Messaging\Models\Message;
+use \AcornAssociated\Messaging\Models\Message;
 use Backend\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -83,8 +83,8 @@ class IMAP
                     'email'      => $email,
                     'password'   => $password,
                     'password_confirmation' => $password,
-                    'acorn_messaging_email_notifications' => $emailNotifications,
-                    'acorn_messaging_autocreated' => TRUE,
+                    'acornassociated_messaging_email_notifications' => $emailNotifications,
+                    'acornassociated_messaging_autocreated' => TRUE,
                 ]);
                 $user->save();
             } catch (ModelException $ex) {

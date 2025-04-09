@@ -30,7 +30,7 @@
 }
 
 body #layout-body {
-    /* Override the acorn.calendar.css setting, included for Calendar tab */
+    /* Override the acornassociated.calendar.css setting, included for Calendar tab */
     padding: 0px!important;
 }
 

@@ -7,7 +7,7 @@
     <?= $form->render() ?>
 
     <!-- These values set the tabId when submitted 
-        see acorn.messaging.js updateIdentifier
+        see acornassociated.messaging.js updateIdentifier
     -->
     <input type="hidden" value="<?= e($form->alias) ?>" name="formWidgetAlias" />
     <input type="hidden" value="<?= ($templateType) ?>" name="templateType" />

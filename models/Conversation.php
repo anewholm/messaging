@@ -1,7 +1,7 @@
-<?php namespace Acorn\Messaging\Models;
+<?php namespace AcornAssociated\Messaging\Models;
 
-use Acorn\User\Models\User;
-use Acorn\Messaging\Models\Message;
+use AcornAssociated\User\Models\User;
+use AcornAssociated\Messaging\Models\Message;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
 

@@ -1,14 +1,14 @@
-<?php namespace Acorn\Messaging\Updates;
+<?php namespace AcornAssociated\Messaging\Updates;
 
 use DB;
 use Schema;
-use \Acorn\Migration;
+use \AcornAssociated\Migration;
 
-class BuilderTableCreateAcornMessagingStatus extends Migration
+class BuilderTableCreateAcornassociatedMessagingStatus extends Migration
 {
     public function up()
     {
-        Schema::create('acorn_messaging_status', function($table)
+        Schema::create('acornassociated_messaging_status', function($table)
         {
             $table->engine = 'InnoDB';
             $table->uuid('id')->primary()->default(DB::raw('(gen_random_uuid())'));
@@ -18,9 +18,9 @@ class BuilderTableCreateAcornMessagingStatus extends Migration
             $table->timestamp('updated_at')->nullable();
         });
 
-        $this->setTableTypeContent('acorn_messaging_status');
+        $this->setTableTypeContent('acornassociated_messaging_status');
 
-        Schema::create('acorn_messaging_user_message_status', function($table)
+        Schema::create('acornassociated_messaging_user_message_status', function($table)
         {
             $table->engine = 'InnoDB';
             $table->uuid('user_id');
@@ -32,22 +32,22 @@ class BuilderTableCreateAcornMessagingStatus extends Migration
 
             $table->primary(['message_id', 'status_id']);
             $table->foreign('user_id')
-                ->references('id')->on('acorn_user_users')
+                ->references('id')->on('acornassociated_user_users')
                 ->onDelete('cascade');
             $table->foreign('message_id')
-                ->references('id')->on('acorn_messaging_message')
+                ->references('id')->on('acornassociated_messaging_message')
                 ->onDelete('cascade');
             $table->foreign('status_id')
-                ->references('id')->on('acorn_messaging_status')
+                ->references('id')->on('acornassociated_messaging_status')
                 ->onDelete('cascade');
         });
 
-        $this->setTableTypeContent('acorn_messaging_user_message_status');
+        $this->setTableTypeContent('acornassociated_messaging_user_message_status');
     }
 
     public function down()
     {
-        Schema::dropIfExists('acorn_messaging_user_message_status');
-        Schema::dropIfExists('acorn_messaging_status');
+        Schema::dropIfExists('acornassociated_messaging_user_message_status');
+        Schema::dropIfExists('acornassociated_messaging_status');
     }
 }

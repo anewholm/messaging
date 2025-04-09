@@ -1,13 +1,13 @@
-<?php namespace Acorn\Messaging\Updates;
+<?php namespace AcornAssociated\Messaging\Updates;
 
 use Schema;
-use \Acorn\Migration;
+use \AcornAssociated\Migration;
 
-class BuilderTableCreateAcornMessagingMessageUser extends Migration
+class BuilderTableCreateAcornassociatedMessagingMessageUser extends Migration
 {
     public function up()
     {
-        Schema::create('acorn_messaging_message_user', function($table)
+        Schema::create('acornassociated_messaging_message_user', function($table)
         {
             $table->engine = 'InnoDB';
             $table->uuid('message_id');
@@ -17,16 +17,16 @@ class BuilderTableCreateAcornMessagingMessageUser extends Migration
             $table->primary(['message_id','user_id']);
 
             $table->foreign('user_id')
-                ->references('id')->on('acorn_user_users')
+                ->references('id')->on('acornassociated_user_users')
                 ->onDelete('cascade');
             $table->foreign('message_id')
-                ->references('id')->on('acorn_messaging_message')
+                ->references('id')->on('acornassociated_messaging_message')
                 ->onDelete('cascade');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('acorn_messaging_message_user');
+        Schema::dropIfExists('acornassociated_messaging_message_user');
     }
 }

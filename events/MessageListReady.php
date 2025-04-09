@@ -1,7 +1,7 @@
-<?php namespace Acorn\Messaging\Events;
+<?php namespace AcornAssociated\Messaging\Events;
 
-use Acorn\User\Models\User;
-use Acorn\Collection;
+use AcornAssociated\User\Models\User;
+use AcornAssociated\Collection;
 
 class MessageListReady
 {
