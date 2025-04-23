@@ -25,16 +25,21 @@ class Plugin extends PluginBase
 
         Event::listen('mailer.register', function (MailManager $mailmanager, Mailer $mailer) {
             // If the authentiacated user has their own SMTP setup, then use it
-            $user = BackendAuth::user();
-            $userHasCustomSetup = ($user->acorn_smtp_server && $user->acorn_smtp_username && $user->acorn_smtp_password);
-            if ($userHasCustomSetup) {
-                $mailer->alwaysFrom($user->acorn_smtp_username, $user->first_name);
-                $transport = $mailer->getSymfonyTransport();
-                $stream    = $transport->getStream();
-                $transport->setUsername($user->acorn_smtp_username);
-                $transport->setPassword($user->acorn_smtp_password);
-                $stream->setHost($user->acorn_smtp_server);
-                $stream->setPort($user->acorn_smtp_port);
+            if ($user = BackendAuth::user()) {
+                $userHasCustomSetup = (
+                       $user->acorn_smtp_server 
+                    && $user->acorn_smtp_username 
+                    && $user->acorn_smtp_password
+                );
+                if ($userHasCustomSetup) {
+                    $mailer->alwaysFrom($user->acorn_smtp_username, $user->first_name);
+                    $transport = $mailer->getSymfonyTransport();
+                    $stream    = $transport->getStream();
+                    $transport->setUsername($user->acorn_smtp_username);
+                    $transport->setPassword($user->acorn_smtp_password);
+                    $stream->setHost($user->acorn_smtp_server);
+                    $stream->setPort($user->acorn_smtp_port);
+                }
             }
         });
 
